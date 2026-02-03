@@ -7,8 +7,6 @@ CREATE TABLE TBL_ADDR(
 	,CONSTRAINT ADDR_PK PRIMARY KEY (ADDR_NUMBER)
 );
 
-CREATE SEQUENCE SEQ_ADDR NOCACHE NOCYCLE;
-
 --TBL_USER
 --USER_NUMBER NUMBER PK
 --========================
@@ -29,6 +27,8 @@ CREATE TABLE TBL_USER (
 	,CONSTRAINT USER_ID_UK UNIQUE (USER_ID)
 	,CONSTRAINT USER_ADDR_FK FOREIGN KEY (ADDR_NUMBER) REFERENCES TBL_ADDR(ADDR_NUMBER)
 );
+
+CREATE SEQUENCE SEQ_USER NOCACHE NOCYCLE;
 
 
 --TBL_ITEM
@@ -85,13 +85,13 @@ DROP TABLE TBL_ORDER;
 
 
 INSERT INTO TBL_ADDR
-VALUES (08758,'서울특별시 관악구 남부순환로');
-VALUES (06035,'서울특별시 강남구 강남대로');
-VALUES (03322,'서울특별시 은평구 갈현로');
-VALUES (06972, '서울특별시 동작구 노량진로');
-VALUES (06236, '서울특별시 강남구 테헤란로');
-VALUES (01002, '서울특별시 강북구 도선사길');
-VALUES (04733, '서울특별시 성동구 독서당로');
+VALUES ('08758','서울특별시 관악구 남부순환로');
+VALUES ('06035','서울특별시 강남구 강남대로');
+VALUES ('03322','서울특별시 은평구 갈현로');
+VALUES ('06972', '서울특별시 동작구 노량진로');
+VALUES ('06236', '서울특별시 강남구 테헤란로');
+VALUES ('01002', '서울특별시 강북구 도선사길');
+VALUES ('04733', '서울특별시 성동구 독서당로');
 
 
 INSERT INTO TBL_ITEM 
@@ -116,8 +116,6 @@ VALUES(SEQ_ORDER.NEXTVAL, 'Gry_Denim', '하의', 82000, 0);
 VALUES(SEQ_ORDER.NEXTVAL, 'BlK_Chino', '하의', 90000, 0);
 VALUES(SEQ_ORDER.NEXTVAL, 'Wht_Chino', '하의', 90000, 0);
 VALUES(SEQ_ORDER.NEXTVAL, 'Bei_Chino', '하의', 90000, 0);
-
-
 
 
 
