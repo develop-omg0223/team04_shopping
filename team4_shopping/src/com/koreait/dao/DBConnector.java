@@ -12,7 +12,7 @@ public class DBConnector {
 		Connection connection = null;
 
 		// 연결에 필요한 정보
-		String userName = "kdt";
+		String userName = "kdt4";
 		String password = "1234";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		// jdbc url 구글링하면 나옴
