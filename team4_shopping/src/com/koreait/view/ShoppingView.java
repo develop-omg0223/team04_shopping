@@ -1,5 +1,6 @@
 package com.koreait.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class ShoppingView {
 //	상품 : 상품검색(조회) 카테고리별 / 전체, 
 //	주문 : 상품구매(등록), 주문조회(조회) 기간별 / 날짜별, 배송지 변경(수정), 주문취소(삭제)
 
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 
 	// 로그인 전 메뉴
 	public int menuLogout() {
@@ -80,17 +81,17 @@ public class ShoppingView {
 	// 회원가입
 //	public UserDTO inputUser() {
 //		UserDTO user = new UserDTO();
-//        System.out.println("--- 회원 가입 ---\n");
-//        System.out.print("아이디 : ");
+//        System.out.println("--- 회원가입 ---\n");
+//        System.out.print("아이디 입력 : ");
 //        user.setUserId(sc.nextLine());
-//        System.out.print("비밀번호 : ");
+//        System.out.print("비밀번호 입력 : ");
 //        user.setUserPw(sc.nextLine());
-//        System.out.print("이름 : ");
+//        System.out.print("이름 입력 : ");
 //        user.setUserName(sc.nextLine());
-//        System.out.print("전화번호 : ");
+//        System.out.print("전화번호 입력 : ");
 //        user.setUserPhone(sc.nextLine());
-//        System.out.print("주소 : ");
-//        //System.out.print("우편번호 : ");
+//        System.out.print("주소 입력 : ");
+//        //System.out.print("우편번호 입력 : ");
 //        user.setUserAddr(sc.nextLine()); 
 //        return user;
 //    }
@@ -117,7 +118,6 @@ public class ShoppingView {
 //	}
 
 	// 회원탈퇴
-	// 아이디와 비밀번호 입력받고 탈퇴?
 //	public UserDTO deleteUser() {
 //		UserDTO user = new UserDTO();
 //		System.out.println("--- 회원 탈퇴 ---");
@@ -125,30 +125,34 @@ public class ShoppingView {
 //		user.setUserId(sc.nextLine());
 //		System.out.print("비밀번호 : ");
 //		user.setUserPw(sc.nextLine());
+//		System.out.print("이름 : ");
+//		user.setUserName(sc.nextLine());
 //		return user;
 //	}
 
 	// ---상품
 	// 상품 전체조회
-//	public void findAllItem(List<itemDTO> list) {
-//		if(list.isempty() ) {
+//	public void findAllItem(List<ItemDTO> list) {
+//		System.out.println("--- 전체조회 ---");
+//		if(list.isEmpty() ) {
 //			System.out.println("상품 데이터가 없습니다");
 //			return;
 //		}
-//		for (itemDTO item : list) {
+//		for (ItemDTO item : list) {
 //			System.out.println(item);
 //		}
 //	}
-	
+
 	// 상품 카테고리별 조회
 //	public String findItemCategory() { 
+//		System.out.println("--- 카테고리별 조회 ---");
 //        System.out.println("검색할 카테고리 입력\n[모자, 상의, 하의, 신발]");
 //        String category = sc.nextLine();
 //        return category;
 //	}
-	
+
 	// 상품 구매
-	//회원번호 어떻게 받아올지 고민
+	// 회원번호 어떻게 받아올지 고민
 //	public OrderDTO buyItem() {
 //		OrderDTO order = new OrderDTO();
 //		System.out.println("--- 상품 구매 ---");
@@ -162,12 +166,47 @@ public class ShoppingView {
 
 	// ---주문
 	// 기간으로 주문조회
+//	public List<String> orderFindDateRange() {
+//		List<String> dateRange = new ArrayList<>();
+//		System.out.println("--- 주문 조회 ---");
+//		System.out.print("시작 날짜 입력 (YYYY-MM-DD) : ");
+//		String startDate = sc.nextLine();
+//		System.out.print("끝 날짜 입력 (YYYY-MM-DD) : ");
+//		String endDate = sc.nextLine();
+//		dateRange.add(startDate);
+//		dateRange.add(endDate);
+//		return dateRange;
+//	}
 
 	// 날짜로 주문조회
+//	public String orderFindDate() {
+//		System.out.println("--- 주문 조회 ---");
+//		System.out.print("날짜 입력 (YYYY-MM-DD) : ");
+//		String date = sc.nextLine();
+//		return date;
+//	}
 
 	// 주문 배송지 변경
+	// 주문번호로?
+//	public OrderDTO updateOrderAddr() {
+//        OrderDTO order = new OrderDTO();
+//        System.out.println("--- 배송지 변경 ---");
+//        System.out.print("변경할 주문 번호 : ");
+//        order.setOrderNumber(sc.nextInt());
+//        sc.nextLine();
+//        System.out.print("새로운 배송지 우편번호 : ");
+//        order.setAddrNumber(sc.nextLine());
+//        return order;
+//    }
 
 	// 주문 취소
+//	public int cancelOrderView() {
+//		System.out.println("--- 주문 취소 ---");
+//		System.out.print("취소할 주문 번호 : ");
+//		int orderNumber = sc.nextInt();
+//		sc.nextLine();
+//		return orderNumber;
+//	}
 
 	// 메세지 출력
 	public void msg(String msg) {
