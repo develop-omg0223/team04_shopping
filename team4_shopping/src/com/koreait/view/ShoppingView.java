@@ -111,7 +111,7 @@ public class ShoppingView {
 	// 정보수정
 //	public UserDTO updateUser() {
 //		UserDTO user = new UserDTO();
-//		System.out.println("--- 정보 수정 ---");
+//		System.out.println("--- 정보 수정 ---\n");
 //		System.out.print("새 비밀번호 : ");
 //		user.setUserPw(sc.nextLine());
 //		return user;
@@ -120,7 +120,7 @@ public class ShoppingView {
 	// 회원탈퇴
 //	public UserDTO deleteUser() {
 //		UserDTO user = new UserDTO();
-//		System.out.println("--- 회원 탈퇴 ---");
+//		System.out.println("--- 회원 탈퇴 ---\n");
 //		System.out.print("아이디 : ");
 //		user.setUserId(sc.nextLine());
 //		System.out.print("비밀번호 : ");
@@ -133,7 +133,7 @@ public class ShoppingView {
 	// ---상품
 	// 상품 전체조회
 //	public void findAllItem(List<ItemDTO> list) {
-//		System.out.println("--- 전체조회 ---");
+//		System.out.println("--- 전체조회 ---\n");
 //		if(list.isEmpty() ) {
 //			System.out.println("상품 데이터가 없습니다");
 //			return;
@@ -145,7 +145,7 @@ public class ShoppingView {
 
 	// 상품 카테고리별 조회
 //	public String findItemCategory() { 
-//		System.out.println("--- 카테고리별 조회 ---");
+//		System.out.println("--- 카테고리별 조회 ---\n");
 //        System.out.println("검색할 카테고리 입력\n[모자, 상의, 하의, 신발]");
 //        String category = sc.nextLine();
 //        return category;
@@ -155,7 +155,7 @@ public class ShoppingView {
 	// 회원번호 어떻게 받아올지 고민
 //	public OrderDTO buyItem() {
 //		OrderDTO order = new OrderDTO();
-//		System.out.println("--- 상품 구매 ---");
+//		System.out.println("--- 상품 구매 ---\n");
 //		System.out.print("구매할 상품 이름 : ");
 //	    order.setItemName(sc.nextLine());
 //        System.out.print("배송지 우편번호 : ");
@@ -168,7 +168,7 @@ public class ShoppingView {
 	// 기간으로 주문조회
 //	public List<String> orderFindDateRange() {
 //		List<String> dateRange = new ArrayList<>();
-//		System.out.println("--- 주문 조회 ---");
+//		System.out.println("--- 주문 조회 ---\n");
 //		System.out.print("시작 날짜 입력 (YYYY-MM-DD) : ");
 //		String startDate = sc.nextLine();
 //		System.out.print("끝 날짜 입력 (YYYY-MM-DD) : ");
@@ -180,7 +180,7 @@ public class ShoppingView {
 
 	// 날짜로 주문조회
 //	public String orderFindDate() {
-//		System.out.println("--- 주문 조회 ---");
+//		System.out.println("--- 주문 조회 ---\n");
 //		System.out.print("날짜 입력 (YYYY-MM-DD) : ");
 //		String date = sc.nextLine();
 //		return date;
@@ -190,7 +190,7 @@ public class ShoppingView {
 	// 주문번호로?
 //	public OrderDTO updateOrderAddr() {
 //        OrderDTO order = new OrderDTO();
-//        System.out.println("--- 배송지 변경 ---");
+//        System.out.println("--- 배송지 변경 ---\n");
 //        System.out.print("변경할 주문 번호 : ");
 //        order.setOrderNumber(sc.nextInt());
 //        sc.nextLine();
@@ -201,7 +201,7 @@ public class ShoppingView {
 
 	// 주문 취소
 //	public int cancelOrderView() {
-//		System.out.println("--- 주문 취소 ---");
+//		System.out.println("--- 주문 취소 ---\n");
 //		System.out.print("취소할 주문 번호 : ");
 //		int orderNumber = sc.nextInt();
 //		sc.nextLine();
