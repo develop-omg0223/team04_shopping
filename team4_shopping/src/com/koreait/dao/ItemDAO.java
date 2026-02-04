@@ -31,9 +31,9 @@ public class ItemDAO {
 			
 			while(resultSet.next()) {
 				String row = 
-						resultSet.getString("ITEM_NAME") + " , " +
-						resultSet.getString("ITEM_CAT") + " , " +
-						resultSet.getInt("ITEM_PRICE") + " , " +
+						resultSet.getString("ITEM_NAME") + "\t\t" +
+						resultSet.getString("ITEM_CAT") + "\t\t" +
+						resultSet.getInt("ITEM_PRICE") + "\t\t" +
 						resultSet.getInt("ITEM_STOCK");
 						
 				itemsList.add(row);
@@ -80,9 +80,9 @@ public class ItemDAO {
 			
 			while(resultSet.next()) {
 				String row = 
-						resultSet.getString("ITEM_NAME") + " , " +
-						resultSet.getString("ITEM_CAT") + " , " +
-						resultSet.getInt("ITEM_PRICE") + " , " +
+						resultSet.getString("ITEM_NAME") + "\t\t" +
+						resultSet.getString("ITEM_CAT") + "\t\t" +
+						resultSet.getInt("ITEM_PRICE") + "\t\t" +
 						resultSet.getInt("ITEM_STOCK");
 						
 				itemCatList.add(row);

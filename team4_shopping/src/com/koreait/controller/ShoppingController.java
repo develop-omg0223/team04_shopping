@@ -117,12 +117,15 @@ public class ShoppingController {
 		
 		switch(choice) {
 		case 1:
+			view.findUserInfo(user);
+			break;
+		case 2:
 			pwChange();
 			break;	
-		case 2:
+		case 3:
 			userUpdate();
 			break;
-		case 3:
+		case 4:
 			userDelete();
 			break;
 		case 0:
@@ -207,6 +210,7 @@ public class ShoppingController {
 	
 	//상품 카테고리별 조회
 	private void itemCategorySelect() {
+
 		itemDAO.itemCatSelect(view.findItemCategory()).stream().forEach(System.out::println);
 //		for(String item : itemDAO.itemCatSelect(view.findItemCategory())){
 //			view.msg(item);
@@ -234,15 +238,25 @@ public class ShoppingController {
 		
 		switch(choice) {
 		case 1:
+			orderPeriodSelect();
 			break;
+			
 		case 2:
+			orderDateSelect();
 			break;
+			
 		case 3:
+			orderAddrChange();
 			break;
+			
 		case 4:
+			orderCancel();
 			break;
+			
 		case 0:
+			view.msg("뒤로가기");
 			break;
+			
         default:
             view.msg("잘못입력했습니다");
             break;	
@@ -251,18 +265,42 @@ public class ShoppingController {
 	}
 	
 	
-//	//기간별 주문 조회
-//	private void orderSelect{
-//		
-//	}
-//	
-//	//날짜별 주문 조회
-//	
-//	//배송지 변경
-//	
-//	//주문 취소
-//	
-//	//로그아웃
+	//기간별 주문 조회
+	private void orderPeriodSelect(){
+		
+	}
+	
+	//날짜별 주문 조회
+	private void orderDateSelect() {
+		
+	}
+	
+	//배송지 변경
+	private void orderAddrChange() {
+		OrderDTO changeOrder = view.updateOrderAddr();
+		boolean result = orderDAO.updateOrderAddr(changeOrder,user);
+		
+		if(result) {
+			view.msg("배송지가 변경되었습니다.");
+		}else {
+			view.msg("주문번호와 우편번호를 확인해주시기 바랍니다.");
+		}
+	}
+	
+	//주문 취소
+	private void orderCancel() {
+		int orderNumber = view.cancelOrder();
+		boolean result = orderDAO.cancelOrder(orderNumber,user);
+		
+		if(result) {
+			view.msg("주문 취소되었습니다.");
+		}else {
+			view.msg("주문번호를 확인해 주시기 바랍니다.");
+		}
+	}
+	
+	
+	//로그아웃
 	private void userLogout() {
 		view.msg("로그아웃되었습니다.");
 		user = null;

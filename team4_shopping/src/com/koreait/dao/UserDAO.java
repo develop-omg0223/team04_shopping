@@ -215,8 +215,6 @@ public class UserDAO {
 				u.setUserName(resultSet.getString("USER_NAME"));
 				u.setUserPhone(resultSet.getString("USER_PHONE"));
 				u.setAddrNumber(resultSet.getString("ADDR_NUMBER"));
-
-				System.out.println(u);
 				return u;
 			}
 

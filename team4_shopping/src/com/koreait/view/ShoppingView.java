@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.koreait.dao.UserDAO;
+import com.koreait.dto.OrderDTO;
 import com.koreait.dto.UserDTO;
 
 public class ShoppingView {
@@ -180,6 +181,7 @@ public class ShoppingView {
 	// 상품 전체조회
 	public void findAllItem(List<String> list) {
 		System.out.println("--- 전체조회 ---\n");
+		System.out.println("상품명\t\t카테고리\t\t가격\t\t재고량");
 		if(list.isEmpty() ) {
 			System.out.println("상품 데이터가 없습니다");
 			return;
@@ -194,6 +196,7 @@ public class ShoppingView {
 		System.out.println("--- 카테고리별 조회 ---\n");
         System.out.println("검색할 카테고리 입력\n[모자, 상의, 하의, 신발]");
         String category = sc.nextLine();
+        System.out.println("상품명\t\t카테고리\t\t가격\t\t재고량");
         return category;
 	}
 
@@ -229,25 +232,25 @@ public class ShoppingView {
 
 	// 주문 배송지 변경
 	// 주문번호로?
-//	public OrderDTO updateOrderAddr() {
-//        OrderDTO order = new OrderDTO();
-//        System.out.println("--- 배송지 변경 ---\n");
-//        System.out.print("변경할 주문 번호 : ");
-//        order.setOrderNumber(sc.nextInt());
-//        sc.nextLine();
-//        System.out.print("새로운 배송지 우편번호 : ");
-//        order.setAddrNumber(sc.nextLine());
-//        return order;
-//    }
+	public OrderDTO updateOrderAddr() {
+        OrderDTO order = new OrderDTO();
+        System.out.println("--- 배송지 변경 ---\n");
+        System.out.print("변경할 주문 번호 : ");
+        order.setOrderNumber(sc.nextInt());
+        sc.nextLine();
+        System.out.print("새로운 배송지 우편번호 : ");
+        order.setAddrNumber(sc.nextLine());
+        return order;
+    }
 
 	// 주문 취소
-//	public int cancelOrder() {
-//		System.out.println("--- 주문 취소 ---\n");
-//		System.out.print("취소할 주문 번호 : ");
-//		int orderNumber = sc.nextInt();
-//		sc.nextLine();
-//		return orderNumber;
-//	}
+	public int cancelOrder() {
+		System.out.println("--- 주문 취소 ---\n");
+		System.out.print("취소할 주문 번호 : ");
+		int orderNumber = sc.nextInt();
+		sc.nextLine();
+		return orderNumber;
+	}
 
 	// 메세지 출력
 	public void msg(String msg) {
