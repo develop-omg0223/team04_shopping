@@ -69,6 +69,12 @@ public class ItemDTO {
 		this.itemStock = itemStock;
 	}
 
+	@Override
+	public String toString() {
+		   return "상품번호 : " + itemNumber + ", 상품이름 : " + itemName + ", 카테고리" + itemCat + ", 가격"
+		            + itemPrice + ", 재고" + itemStock;
+	}
 
+	
 
 }

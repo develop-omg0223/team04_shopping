@@ -21,34 +21,142 @@ public class UserDAO {
 //	철민      회원 DAO - 회원가입(아이디중복검사), 정보수정
 	
 //  철민 회원가입 메소드 
-	public List<UserDTO> join(UserDTO userDTO) {
-		System.out.println("아이디 입력 : ");
-		userDTO.setUserId(sc.nextLine());
-		for (UserDTO u : userList) {
-			if (u.getUserId().equals(userDTO.getUserId())) {
-				return userList;	// 아이디 중복확인  
-			}
-		}
-		System.out.println("비밀번호 입력 : ");
-		userDTO.setUserPw(sc.nextLine());
-		System.out.println("이름 입력 : ");
-		userDTO.setUserName(sc.nextLine());
-		System.out.println("나이 입력 : ");
-		userDTO.setUserAge(sc.nextInt());
-		userList.add(userDTO);
-		return userList;	// 회원가입 성공 
+	public boolean join(UserDTO userDTO) {
+	      String query = "INSERT INTO TBL_USER (USER_NUMBER,USER_ID,USER_PW,USER_NAME,ADDR_NUMBER,USER_PHONE) "
+	            + "VALUES(SEQ_USER.NEXTVAL, ?, ?, ?, ?, ?)";
+	      int result = 0;
 
-	}
+	      try {
+	         connection = DBConnector.getConnection();
+	         preparedStatement = connection.prepareStatement(query);
+	         preparedStatement.setInt(1, userDTO.getUserNumber());
+	         preparedStatement.setString(2, userDTO.getUserId());
+	         preparedStatement.setString(3, userDTO.getUserPw());
+	         preparedStatement.setString(4, userDTO.getUserName());
+	         preparedStatement.setString(5, userDTO.getAddrNumber());
+	         preparedStatement.setString(6, userDTO.getUserPhone());
+	         result = preparedStatement.executeUpdate();
+	      } catch (SQLException e) {
+	         System.out.println("join() SQL 오류");
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if (preparedStatement != null) {
+	               preparedStatement.close();
+	            }
+	            if (connection != null) {
+	               connection.close();
+	            }
+	         } catch (SQLException e) {
+	            System.out.println("join() 접속 종료시 오류");
+	            e.printStackTrace();
+	         }
+	      }
+	      return result > 0;
+	   }
+
 	
-// 철민 아이디 중복검사 메소드 
-	public boolean idCheck (String id ) {
-		for(UserDTO u : userList) {
-			if (u.getUserId().equals(id)) {
-				return true;	// 같은 아이디 존재 
-			}
-		}
-		return false;	// 같은 아이디 없음 
-	}
+	
+//  철민 아이디 중복검사 메소드 
+public boolean idCheck(String id) {
+  String query = "SELECT USER_NUMBER FROM TBL_USER WHERE USER_ID = ?";
+  int result = 0;
+  
+  try {
+     connection = DBConnector.getConnection();
+     preparedStatement = connection.prepareStatement(query);
+     preparedStatement.setString(1, id);
+     resultSet = preparedStatement.executeQuery();
+     if (resultSet.next()) {
+        result = 1;
+     }
+  } catch (SQLException e) {
+     System.out.println("idCheck() SQL 오류");
+     e.printStackTrace();
+  }finally {
+     try {
+        if (resultSet != null) {
+           resultSet.close();
+        }
+        if (preparedStatement != null) {
+           preparedStatement.close();
+        }
+        if (connection != null) {
+           connection.close();
+        }
+     } catch (SQLException e) {
+        System.out.println("idCheck() 접속 종료시 오류");
+        e.printStackTrace();
+     }
+  }
+  return result > 0;
+}
+
+//  철민 비밀번호 변경
+public boolean changePw(int userNumber, String oldPw, String newPW) {
+   String query = "UPDATE TBL_USER SET USER_PW = ? WHERE USER_NUMBER = ? AND USER_PW = ? ";
+
+   int result = 0;
+   try {
+      connection = DBConnector.getConnection();
+      preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, newPW);
+      preparedStatement.setString(2, oldPw);
+      preparedStatement.setInt(3, userNumber);
+      result = preparedStatement.executeUpdate();
+   } catch (SQLException e) {
+      System.out.println("changePw() SQL 오류");
+      e.printStackTrace();
+   } finally {
+      try {
+         if (preparedStatement != null) {
+            preparedStatement.close();
+         }
+         if (connection != null) {
+            connection.close();
+         }
+      } catch (SQLException e) {
+         System.out.println("changePw() 연결 해제 오류");
+         e.printStackTrace();
+      }
+   }
+   return result > 0;
+
+}
+
+//  철민 회원정보 (전화번호, 주소 )변경 
+public boolean changeInfo (int userNumber, String phone, String addrNum, String pw) {
+   String query = "UPDATE TBL_USER SET USER_PHONE = ?, ADDR_NUMBER = ?  WHERE USER_NUMBER = ? AND USER_PW =?";
+   int result = 0;
+   
+   try {
+      connection = DBConnector.getConnection();
+      preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, phone);
+      preparedStatement.setString(2,addrNum);
+      preparedStatement.setInt(3, userNumber);
+      preparedStatement.setString(4, pw);
+      result = preparedStatement.executeUpdate();
+   } catch (SQLException e) {
+      System.out.println("changeInfo() SQL 오류");
+      e.printStackTrace();
+   }finally {
+      try {
+         if (preparedStatement != null) {
+            preparedStatement.close();
+         }
+         if (connection != null) {
+            connection.close();
+         }
+      } catch (SQLException e) {
+         System.out.println("changeInfo() 연결 해제 오류");
+         e.printStackTrace();
+      }
+      
+   }
+   return result > 0;
+}	
+
 	
 
 //	서울 로그인 메소드
