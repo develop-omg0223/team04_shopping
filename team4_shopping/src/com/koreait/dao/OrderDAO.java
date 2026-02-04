@@ -101,13 +101,13 @@ public class OrderDAO {
 //		return i;
 //	}
 //	주문조회 
-	public void ordersearch (OrderDTO order) {
-		// 아이템 name , 주문날짜 , 주문 상태, 아이템cat , 아이템 price,
-		connection = DBConnector.getConnection();
-		preparedStatement = connection.prepareStatement(query);
-		
-		
-	}
+//	public void ordersearch (OrderDTO order) {
+//		// 아이템 name , 주문날짜 , 주문 상태, 아이템cat , 아이템 price,
+//		connection = DBConnector.getConnection();
+//		preparedStatement = connection.prepareStatement(query);
+//		
+//		
+//	}
 //   주문 DAO - 수정, 주문취소
 	
 	// 주문 수정

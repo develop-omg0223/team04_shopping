@@ -8,6 +8,7 @@ public class UserDTO {
 	   private String userName;
 	   private String userPhone;
 	   private String addrNumber;
+
 	   public int getUserNumber() {
 		   return userNumber;
 	   }
@@ -50,7 +51,6 @@ public class UserDTO {
 		return "UserDTO [userNumber=" + userNumber + ", userId=" + userId + ", userPw=" + userPw + ", userName="
 				+ userName + ", userPhone=" + userPhone + ", addrNumber=" + addrNumber + "]";
 	   }
-	   	   
-	    
+
 	   
 }
