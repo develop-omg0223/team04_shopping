@@ -132,13 +132,13 @@ public class ShoppingView {
 
 	// ---상품
 	// 상품 전체조회
-//	public void findAllItem(List<ItemDTO> list) {
+//	public void findAllItem(List<String> list) {
 //		System.out.println("--- 전체조회 ---\n");
 //		if(list.isEmpty() ) {
 //			System.out.println("상품 데이터가 없습니다");
 //			return;
 //		}
-//		for (ItemDTO item : list) {
+//		for (String item : list) {
 //			System.out.println(item);
 //		}
 //	}
