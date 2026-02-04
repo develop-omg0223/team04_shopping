@@ -15,7 +15,7 @@ public class ShoppingController {
 	public void run() {
 		
 		int loginBeforeChoice = 0;
-		
+		int loginAfterChoice = 0;
 		
 		while(loginBeforeChoice != 2) {
 			loginBeforeChoice = beforeLogin();
@@ -26,7 +26,10 @@ public class ShoppingController {
 		}
 		
 		if(loginBeforeChoice == 2) {
-			afterLogin();
+			while(loginAfterChoice != 0) {
+			loginAfterChoice = afterLogin();
+			}
+			
 		}
 		
 		
@@ -85,7 +88,7 @@ public class ShoppingController {
 		
 		switch(choice) {
 		case 1 :
-
+			myPage();
 			break;
 		case 2:
 
