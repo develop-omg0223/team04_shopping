@@ -160,7 +160,7 @@ public boolean changeInfo (int userNumber, String phone, String addrNum, String 
 	
 
 //	서울 로그인 메소드
-	public String login(UserDTO userDTO) {
+	public UserDTO login(UserDTO userDTO) {
 		String query = "SELECT USER_NAME FROM TBL_USER WHERE USER_ID = ? AND USER_PW = ?";
 		UserDTO u = new UserDTO();
 		
