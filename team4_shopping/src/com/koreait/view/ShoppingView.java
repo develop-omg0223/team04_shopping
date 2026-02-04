@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.koreait.dto.OrderDTO;
+import com.koreait.dao.UserDAO;
 import com.koreait.dto.UserDTO;
 
 public class ShoppingView {
@@ -14,6 +14,7 @@ public class ShoppingView {
 //	주문 : 상품구매(등록), 주문조회(조회) 기간별 / 날짜별, 배송지 변경(수정), 주문취소(삭제)
 
 	private Scanner sc = new Scanner(System.in);
+	UserDAO userDAO = new UserDAO();
 
 	// 로그인 전 메뉴
 	public int menuLogout() {
@@ -43,9 +44,10 @@ public class ShoppingView {
 	// 마이페이지 메뉴
 	public int myPageMenu() {
 		System.out.println("--- 마이페이지 ---\n");
-		System.out.println("1. 비밀번호 변경");
-		System.out.println("2. 정보 수정");
-		System.out.println("3. 회원탈퇴");
+		System.out.println("1. 나의 정보");
+		System.out.println("2. 비밀번호 변경");
+		System.out.println("3. 정보 수정");
+		System.out.println("4. 회원탈퇴");
 		System.out.println("0. 뒤로가기");
 		System.out.print("선택 : ");
 		int choice = sc.nextInt();
@@ -85,21 +87,30 @@ public class ShoppingView {
 	// 회원가입
 	public UserDTO inputUser() {
 		UserDTO user = new UserDTO();
-        System.out.println("--- 회원가입 ---\n");
-        System.out.print("아이디 입력 : ");
-        user.setUserId(sc.nextLine());
-        System.out.print("비밀번호 입력 : ");
-        user.setUserPw(sc.nextLine());
-        System.out.print("이름 입력 : ");
-        user.setUserName(sc.nextLine());
-        System.out.print("전화번호 입력 : ");
-        user.setUserPhone(sc.nextLine());
-        System.out.print("주소 입력 : ");
-        //System.out.print("우편번호 입력 : ");
-        user.setAddrNumber(sc.nextLine()); 
-        return user;
-    }
-
+		System.out.println("--- 회원가입 ---\n");
+		System.out.print("아이디 입력 : ");
+		while (true) {
+			String id = sc.nextLine();
+			// true면 중복
+			if (userDAO.idCheck(id)) {
+				System.out.println("이미 존재하는 아이디입니다");
+			} else {
+				System.out.println("사용가능한 아이디입니다");
+				user.setUserId(id);
+				break;
+			}
+		}
+		System.out.print("비밀번호 입력 : ");
+		user.setUserPw(sc.nextLine());
+		System.out.print("이름 입력 : ");
+		user.setUserName(sc.nextLine());
+		System.out.print("전화번호 입력 : ");
+		user.setUserPhone(sc.nextLine());
+		System.out.print("주소 입력 : ");
+		// System.out.print("우편번호 입력 : ");
+		user.setAddrNumber(sc.nextLine());
+		return user;
+	}
 
 	// 로그인
 	public UserDTO login() {
@@ -113,6 +124,15 @@ public class ShoppingView {
 	}
 
 	// ---마이페이지
+	// 내 정보 확인 
+	public void findUserInfo(UserDTO user) {
+	    System.out.println("--- 나의 정보 ---\n");
+	    System.out.println("아이디 : " + user.getUserId());
+	    System.out.println("이름 : " + user.getUserName());
+	    System.out.println("전화번호 : " + user.getUserPhone());
+	    System.out.println("우편번호 : " + user.getAddrNumber());
+	}
+	
 	// 비밀번호변경
 	public List<String> changePw() {
 		List<String> changePw = new ArrayList<>();
