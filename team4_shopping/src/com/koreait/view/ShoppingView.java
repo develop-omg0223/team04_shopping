@@ -1,8 +1,8 @@
 package com.koreait.view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
+import com.koreait.dto.UserDTO;
 
 public class ShoppingView {
 
@@ -40,8 +40,9 @@ public class ShoppingView {
 	// 마이페이지 메뉴
 	public int myPageMenu() {
 		System.out.println("--- 마이페이지 ---\n");
-		System.out.println("1. 정보수정");
-		System.out.println("2. 회원탈퇴");
+		System.out.println("1. 비밀번호 변경");
+		System.out.println("2. 정보 수정");
+		System.out.println("3. 회원탈퇴");
 		System.out.println("0. 뒤로가기");
 		System.out.print("선택 : ");
 		int choice = sc.nextInt();
@@ -97,15 +98,15 @@ public class ShoppingView {
 //    }
 
 	// 로그인
-//	public UserDTO login() {
-//		UserDTO user = new UserDTO();
-//		System.out.println("--- 회원 가입 ---\n");
-//		System.out.print("아이디 : ");
-//		user.setUserId(sc.nextLine());
-//		System.out.print("비밀번호 : ");
-//		user.setUserPw(sc.nextLine());
-//		return user;
-//	}
+	public UserDTO login() {
+		UserDTO user = new UserDTO();
+		System.out.println("--- 회원 가입 ---\n");
+		System.out.print("아이디 : ");
+		user.setUserId(sc.nextLine());
+		System.out.print("비밀번호 : ");
+		user.setUserPw(sc.nextLine());
+		return user;
+	}
 
 	// ---마이페이지
 	// 정보수정
