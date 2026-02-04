@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreait.dao.UserDAO;
 import com.koreait.dto.UserDTO;
 
 public class ShoppingView {
@@ -13,6 +14,7 @@ public class ShoppingView {
 //	주문 : 상품구매(등록), 주문조회(조회) 기간별 / 날짜별, 배송지 변경(수정), 주문취소(삭제)
 
 	private Scanner sc = new Scanner(System.in);
+	UserDAO userdao = new UserDAO();
 
 	// 로그인 전 메뉴
 	public int menuLogout() {
@@ -86,7 +88,15 @@ public class ShoppingView {
 		UserDTO user = new UserDTO();
 		System.out.println("--- 회원가입 ---\n");
 		System.out.print("아이디 입력 : ");
-		user.setUserId(sc.nextLine());
+		String id = sc.nextLine();
+		//idcheck가 true면 중복
+		if (userdao.idCheck(id)) {
+			System.out.println("이미 있는 아이디입니다");
+			
+		} else {
+			
+		}
+//		user.setUserId(sc.nextLine());
 		System.out.print("비밀번호 입력 : ");
 		user.setUserPw(sc.nextLine());
 		System.out.print("이름 입력 : ");
