@@ -22,20 +22,21 @@ public class UserDAO {
 	
 //  철민 회원가입 메소드 
 	public boolean join(UserDTO userDTO) {
-	      String query = "INSERT INTO TBL_USER (USER_NUMBER,USER_ID,USER_PW,USER_NAME,ADDR_NUMBER,USER_PHONE) "
+	      String query = "INSERT INTO TBL_USER (USER_NUMBER,USER_ID,USER_PW,USER_NAME,USER_PHONE,ADDR_NUMBER) "
 	            + "VALUES(SEQ_USER.NEXTVAL, ?, ?, ?, ?, ?)";
 	      int result = 0;
 
 	      try {
 	         connection = DBConnector.getConnection();
 	         preparedStatement = connection.prepareStatement(query);
-	         preparedStatement.setInt(1, userDTO.getUserNumber());
-	         preparedStatement.setString(2, userDTO.getUserId());
-	         preparedStatement.setString(3, userDTO.getUserPw());
-	         preparedStatement.setString(4, userDTO.getUserName());
+	         preparedStatement.setString(1, userDTO.getUserId());
+	         preparedStatement.setString(2, userDTO.getUserPw());
+	         preparedStatement.setString(3, userDTO.getUserName());
+	         preparedStatement.setString(4, userDTO.getUserPhone());
 	         preparedStatement.setString(5, userDTO.getAddrNumber());
-	         preparedStatement.setString(6, userDTO.getUserPhone());
+	         
 	         result = preparedStatement.executeUpdate();
+	         
 	      } catch (SQLException e) {
 	         System.out.println("join() SQL 오류");
 	         e.printStackTrace();
@@ -160,8 +161,8 @@ public boolean changeInfo (int userNumber, String phone, String addrNum, String 
 	
 
 //	서울 로그인 메소드
-	public String login(UserDTO userDTO) {
-		String query = "SELECT USER_NAME FROM TBL_USER WHERE USER_ID = ? AND USER_PW = ?";
+	public UserDTO login(UserDTO userDTO) {
+		String query = "SELECT USER_NUMBER, USER_ID, USER_PW, USER_NAME, USER_PHONE, ADDR_NUMBER FROM TBL_USER WHERE USER_ID = ? AND USER_PW = ?";
 		UserDTO u = new UserDTO();
 		
 		try {
@@ -170,6 +171,22 @@ public boolean changeInfo (int userNumber, String phone, String addrNum, String 
 			preparedStatement.setString(1, userDTO.getUserId());
 			preparedStatement.setString(2, userDTO.getUserPw());
 			resultSet = preparedStatement.executeQuery();
+
+			
+			while(resultSet.next()) {
+				u.setUserNumber(resultSet.getInt("USER_NUMBER"));
+				u.setUserId(resultSet.getString("USER_ID"));
+				u.setUserPw(resultSet.getString("USER_PW"));
+				u.setUserName(resultSet.getString("USER_NAME"));
+				u.setUserPhone(resultSet.getString("USER_PHONE"));
+				u.setAddrNumber(resultSet.getString("ADDR_NUMBER"));
+				
+				System.out.println(u);
+				return u;
+			}
+
+			
+			
 		} catch (SQLException e) {
 			System.out.println("login() SQL 오류!!");
 			e.printStackTrace();
@@ -189,7 +206,7 @@ public boolean changeInfo (int userNumber, String phone, String addrNum, String 
 				e.printStackTrace();
 			}
 		}
-		return u;
+		return null;
 	}
 	
 //	서울 회원탈퇴 메소드 (아이디, 비밀번호, 이름 일치 시 탈퇴 가능)

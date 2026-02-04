@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreait.dto.UserDTO;
+
 public class ShoppingView {
 
 //	회원 : 회원가입(등록), 로그인(조회), 정보수정(수정), 회원탈퇴(삭제)
@@ -15,8 +17,8 @@ public class ShoppingView {
 	// 로그인 전 메뉴
 	public int menuLogout() {
 		System.out.println("===== 남녀공용 의류 쇼핑몰 =====\n");
-		System.out.println("1. 로그인");
-		System.out.println("2. 회원가입");
+		System.out.println("1. 회원가입");
+		System.out.println("2. 로그인");
 		System.out.println("0. 종료");
 		System.out.print("선택 : ");
 		int choice = sc.nextInt();
@@ -79,33 +81,33 @@ public class ShoppingView {
 	// ---로그인 전 메뉴
 
 	// 회원가입
-//	public UserDTO inputUser() {
-//		UserDTO user = new UserDTO();
-//        System.out.println("--- 회원가입 ---\n");
-//        System.out.print("아이디 입력 : ");
-//        user.setUserId(sc.nextLine());
-//        System.out.print("비밀번호 입력 : ");
-//        user.setUserPw(sc.nextLine());
-//        System.out.print("이름 입력 : ");
-//        user.setUserName(sc.nextLine());
-//        System.out.print("전화번호 입력 : ");
-//        user.setUserPhone(sc.nextLine());
-//        System.out.print("주소 입력 : ");
-//        //System.out.print("우편번호 입력 : ");
-//        user.setUserAddr(sc.nextLine()); 
-//        return user;
-//    }
+	public UserDTO inputUser() {
+		UserDTO user = new UserDTO();
+        System.out.println("--- 회원가입 ---\n");
+        System.out.print("아이디 입력 : ");
+        user.setUserId(sc.nextLine());
+        System.out.print("비밀번호 입력 : ");
+        user.setUserPw(sc.nextLine());
+        System.out.print("이름 입력 : ");
+        user.setUserName(sc.nextLine());
+        System.out.print("전화번호 입력 : ");
+        user.setUserPhone(sc.nextLine());
+        System.out.print("주소 입력 : ");
+        //System.out.print("우편번호 입력 : ");
+        user.setAddrNumber(sc.nextLine()); 
+        return user;
+    }
 
 	// 로그인
-//	public UserDTO login() {
-//		UserDTO user = new UserDTO();
-//		System.out.println("--- 회원 가입 ---\n");
-//		System.out.print("아이디 : ");
-//		user.setUserId(sc.nextLine());
-//		System.out.print("비밀번호 : ");
-//		user.setUserPw(sc.nextLine());
-//		return user;
-//	}
+	public UserDTO login() {
+		UserDTO user = new UserDTO();
+		System.out.println("--- 로그인 ---\n");
+		System.out.print("아이디 : ");
+		user.setUserId(sc.nextLine());
+		System.out.print("비밀번호 : ");
+		user.setUserPw(sc.nextLine());
+		return user;
+	}
 
 	// ---마이페이지
 	// 정보수정

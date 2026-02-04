@@ -26,7 +26,7 @@ public class ShoppingController {
 		}
 		
 		if(loginBeforeChoice == 2) {
-			while
+			afterLogin();
 		}
 		
 		
@@ -116,56 +116,56 @@ public class ShoppingController {
 		}
 	}
 	
-	// 정보수정
-	private void infoChange() {
-		UserDTO dto = view.updateUser();
-		boolean result = userDAO.infoChange(dto);	//userDAO의 정보 수정 메서드
-		
-		if(result) {
-			view.msg("정보가 수정되었습니다.");
-		}
-	}
-	
-	// 회원탈퇴
-	private void userDelete() {
-		UserDTO dto = view.deleteUser();
-		
-		boolean result = userDAO.deleteUser(dto); 
-		
-		if(result) {
-			view.msg(dto.getName + "님께서 회원 탈퇴하셨습니다.");
-		}
-	}
-	
-	//상품 전체조회
-	private void itemAllSelect() {
-		view.findAllItem(itemDAO.itemsSelect());
-	}
-	
-	
-	//상품 카테고리별 조회
-	private void itemCategorySelect() {
-		view.msg(itemDAO.itemCatSelect(view.findItemCategory()));
-	}
-	
-	//상품구매
-	private void itemBuy() {
-		
-	}
-	
-	//기간별 주문 조회
-	private void orderSelect{
-		
-	}
-	
-	//날짜별 주문 조회
-	
-	//배송지 변경
-	
-	//주문 취소
-	
-	//뒤로가기
-	
+//	// 정보수정
+//	private void infoChange() {
+//		UserDTO dto = view.updateUser();
+//		boolean result = userDAO.infoChange(dto);	//userDAO의 정보 수정 메서드
+//		
+//		if(result) {
+//			view.msg("정보가 수정되었습니다.");
+//		}
+//	}
+//	
+//	// 회원탈퇴
+//	private void userDelete() {
+//		UserDTO dto = view.deleteUser();
+//		
+//		boolean result = userDAO.deleteUser(dto); 
+//		
+//		if(result) {
+//			view.msg(dto.getName + "님께서 회원 탈퇴하셨습니다.");
+//		}
+//	}
+//	
+//	//상품 전체조회
+//	private void itemAllSelect() {
+//		view.findAllItem(itemDAO.itemsSelect());
+//	}
+//	
+//	
+//	//상품 카테고리별 조회
+//	private void itemCategorySelect() {
+//		view.msg(itemDAO.itemCatSelect(view.findItemCategory()));
+//	}
+//	
+//	//상품구매
+//	private void itemBuy() {
+//		
+//	}
+//	
+//	//기간별 주문 조회
+//	private void orderSelect{
+//		
+//	}
+//	
+//	//날짜별 주문 조회
+//	
+//	//배송지 변경
+//	
+//	//주문 취소
+//	
+//	//뒤로가기
+//	
 }//class
 
 
