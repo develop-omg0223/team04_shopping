@@ -200,7 +200,7 @@ public class ShoppingView {
 //    }
 
 	// 주문 취소
-//	public int cancelOrderView() {
+//	public int cancelOrder() {
 //		System.out.println("--- 주문 취소 ---\n");
 //		System.out.print("취소할 주문 번호 : ");
 //		int orderNumber = sc.nextInt();
