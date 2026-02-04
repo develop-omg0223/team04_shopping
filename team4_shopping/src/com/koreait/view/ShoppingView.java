@@ -43,7 +43,7 @@ public class ShoppingView {
 		System.out.println("1. 정보수정");
 		System.out.println("2. 회원탈퇴");
 		System.out.println("0. 뒤로가기");
-		System.out.print("선택 >> ");
+		System.out.print("선택 : ");
 		int choice = sc.nextInt();
 		sc.nextLine();
 		return choice;
