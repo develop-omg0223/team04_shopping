@@ -101,8 +101,8 @@ public boolean changePw(int userNumber, String oldPw, String newPW) {
       connection = DBConnector.getConnection();
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, newPW);
-      preparedStatement.setString(2, oldPw);
-      preparedStatement.setInt(3, userNumber);
+      preparedStatement.setInt(2, userNumber);
+      preparedStatement.setString(3, oldPw);
       result = preparedStatement.executeUpdate();
    } catch (SQLException e) {
       System.out.println("changePw() SQL 오류");
