@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.koreait.model.UserDTO;
+import com.koreait.dto.UserDTO;
 
 public class UserDAO {
 
@@ -22,7 +22,7 @@ public class UserDAO {
 //  철민 회원가입 메소드 
 	public List<UserDTO> join(UserDTO userDTO) {
 		System.out.println("아이디 입력 : ");
-		userDTO.setId(sc.nextLine());
+		userDTO.setUserId(sc.nextLine());
 		for (UserDTO u : userList) {
 			if (u.getId().equals(userDTO.getId())) {
 				return userList;	// 아이디 중복확인  

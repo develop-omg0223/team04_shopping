@@ -149,9 +149,14 @@ public class ShoppingController {
 	}
 	
 	//상품구매
-	private 
+	private void itemBuy() {
+		
+	}
 	
 	//기간별 주문 조회
+	private void orderSelect{
+		
+	}
 	
 	//날짜별 주문 조회
 	
