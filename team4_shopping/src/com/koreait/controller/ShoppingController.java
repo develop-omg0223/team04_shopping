@@ -21,24 +21,22 @@ public class ShoppingController {
 	public void run() {
 		
 		int loginBeforeChoice = 0;
-		int loginAfterChoice = 0;
 		
 		while(user == null) {
 			loginBeforeChoice = beforeLogin();
 			
 			if(loginBeforeChoice == 0) {
-				return;
-				
-			}else{
-				
-				while(user != null && loginAfterChoice != 4) {
-					loginAfterChoice = afterLogin();	
-				}
-				user = null;
+				return;	
 			}
-		
+				
+			while(user != null) {
+				afterLogin();	
+			}
+			user = null;
 		}
+		
 	}
+	
 	
 	//로그인 전 선택 메서드
 	private int beforeLogin() {
@@ -88,7 +86,7 @@ public class ShoppingController {
 	}
 	
 	//로그인 후 메뉴
-	private int afterLogin() {
+	private void afterLogin() {
 		int choice = view.menuLogin();
 		
 		switch(choice) {
@@ -108,7 +106,6 @@ public class ShoppingController {
             view.msg("잘못입력했습니다");
             break;	
 		}
-		return choice;
 	}
 	
 	//마이페이지 메뉴
