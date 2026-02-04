@@ -7,7 +7,7 @@ public class UserDTO {
 	   private String userPw;
 	   private String userName;
 	   private String userPhone;
-	   private int addrNumber;
+	   private String addrNumber;
 	   public int getUserNumber() {
 		   return userNumber;
 	   }
@@ -38,19 +38,19 @@ public class UserDTO {
 	   public void setUserPhone(String userPhone) {
 		   this.userPhone = userPhone;
 	   }
-	   public int getAddrNumber() {
+	   public String getAddrNumber() {
 		   return addrNumber;
 	   }
-	   public void setAddrNumber(int addrNumber) {
+	   public void setAddrNumber(String addrNumber) {
 		   this.addrNumber = addrNumber;
 	   }
 	   
 	   @Override
-	   	   public String toString() {
+	   public String toString() {
 		return "UserDTO [userNumber=" + userNumber + ", userId=" + userId + ", userPw=" + userPw + ", userName="
 				+ userName + ", userPhone=" + userPhone + ", addrNumber=" + addrNumber + "]";
 	   }
-	   
+	   	   
 	    
 	   
 }
