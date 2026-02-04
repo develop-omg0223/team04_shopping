@@ -1,7 +1,12 @@
 package com.koreait.controller;
 
+import java.util.List;
+
 import com.koreait.dao.ItemDAO;
+import com.koreait.dao.OrderDAO;
 import com.koreait.dao.UserDAO;
+import com.koreait.dto.ItemDTO;
+import com.koreait.dto.OrderDTO;
 import com.koreait.dto.UserDTO;
 import com.koreait.view.ShoppingView;
 
@@ -9,30 +14,30 @@ public class ShoppingController {
 	
 	ShoppingView view = new ShoppingView();
 	UserDAO userDAO = new UserDAO();
-	UserDTO user = new UserDTO();
 	ItemDAO itemDAO = new ItemDAO();
+	OrderDAO orderDAO = new OrderDAO();
+	UserDTO user = null;
 	
 	public void run() {
 		
 		int loginBeforeChoice = 0;
 		int loginAfterChoice = 0;
 		
-		while(loginBeforeChoice != 2) {
+		while(user == null) {
 			loginBeforeChoice = beforeLogin();
 			
 			if(loginBeforeChoice == 0) {
 				return;
+				
+			}else{
+				
+				while(user != null && loginAfterChoice != 4) {
+					loginAfterChoice = afterLogin();	
+				}
+				user = null;
 			}
+		
 		}
-		
-		if(loginBeforeChoice == 2) {
-			while(loginAfterChoice != 0) {
-			loginAfterChoice = afterLogin();
-			}
-			
-		}
-		
-		
 	}
 	
 	//로그인 전 선택 메서드
@@ -91,13 +96,13 @@ public class ShoppingController {
 			myPage();
 			break;
 		case 2:
-
+			item();
 			break;
 		case 3 : 
-
+			order();
 			break;
 		case 4:
-			
+			userLogout();
 			break;
         default:
             view.msg("잘못입력했습니다");
@@ -112,50 +117,140 @@ public class ShoppingController {
 		
 		switch(choice) {
 		case 1:
-			
+			pwChange();
+			break;	
 		case 2:
-			
+			userUpdate();
+			break;
+		case 3:
+			userDelete();
+			break;
 		case 0:
+			view.msg("뒤로가기");
+			break;
+        default:
+            view.msg("잘못입력했습니다");
+            break;	
 		}
 	}
 	
-//	// 정보수정
-//	private void infoChange() {
-//		UserDTO dto = view.updateUser();
-//		boolean result = userDAO.infoChange(dto);	//userDAO의 정보 수정 메서드
-//		
-//		if(result) {
-//			view.msg("정보가 수정되었습니다.");
+	// 비밀번호수정
+	private void pwChange() {
+		List<String> pwList = view.changePw();
+		boolean result = userDAO.changePw(user.getUserNumber(),pwList.get(0),pwList.get(1));	//userDAO의 정보 수정 메서드
+		
+		if(result) {
+			view.msg("비밀번호가 수정되었습니다.");
+		}else {
+			view.msg("기존 비밀번호가 일치하지 않습니다.");
+		}
+	}
+	
+	//정보 수정
+	private void userUpdate() {
+		UserDTO infoChange = view.updateUser();
+		boolean result = userDAO.changeInfo(user.getUserNumber(),infoChange.getUserPhone(), infoChange.getAddrNumber(),infoChange.getUserPw());
+		
+		if(result) {
+			view.msg("전화번호, 주소가 변경되었습니다.");
+		}else {
+			view.msg("비밀번호가 일치하지 않습니다.");
+		}
+		
+	}
+	
+	// 회원탈퇴
+	private void userDelete() {
+		UserDTO dto = view.deleteUser();
+		
+		boolean result = userDAO.deleteUser(dto); 
+		
+		if(result) {
+			view.msg(dto.getUserName() + "님께서 회원 탈퇴하셨습니다.");
+			user = null;
+		}else {
+			view.msg("아이디, 비밀번호, 이름을 일치하지 않습니다.");
+		}
+		
+	}
+
+	//상품조회
+	private void item() {
+		int choice = view.itemMenu();
+		
+		switch(choice) {
+		case 1:
+			itemAllSelect();
+			break;
+		case 2:
+			itemCategorySelect();
+			break;
+		case 3:
+			itemBuy();
+			break;
+		case 0:
+			view.msg("뒤로가기");
+			break;
+        default:
+            view.msg("잘못입력했습니다");
+            break;	
+			
+		
+		}
+	}
+	
+	//상품 전체조회
+	private void itemAllSelect() {
+		view.findAllItem(itemDAO.itemsSelect());
+	}
+	
+	
+	//상품 카테고리별 조회
+	private void itemCategorySelect() {
+		itemDAO.itemCatSelect(view.findItemCategory()).stream().forEach(System.out::println);
+//		for(String item : itemDAO.itemCatSelect(view.findItemCategory())){
+//			view.msg(item);
 //		}
-//	}
-//	
-//	// 회원탈퇴
-//	private void userDelete() {
-//		UserDTO dto = view.deleteUser();
-//		
-//		boolean result = userDAO.deleteUser(dto); 
-//		
-//		if(result) {
-//			view.msg(dto.getName + "님께서 회원 탈퇴하셨습니다.");
-//		}
-//	}
-//	
-//	//상품 전체조회
-//	private void itemAllSelect() {
-//		view.findAllItem(itemDAO.itemsSelect());
-//	}
-//	
-//	
-//	//상품 카테고리별 조회
-//	private void itemCategorySelect() {
-//		view.msg(itemDAO.itemCatSelect(view.findItemCategory()));
-//	}
-//	
-//	//상품구매
-//	private void itemBuy() {
-//		
-//	}
-//	
+	
+	}
+	
+	//상품구매
+	private void itemBuy() {
+		String itemName = view.buyItem();
+		ItemDTO item = itemDAO.nameNumberMatch(itemName);
+		boolean result = orderDAO.itemBuy(user, item);
+		
+		if(result) {
+			view.msg("주문 완료되었습니다.");
+		}else {
+			view.msg("해당 상품은 판매하지 않습니다.");
+		}
+		
+	}
+
+	//주문 메뉴
+	private void order() {
+		int choice = view.orderMenu();
+		
+		switch(choice) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 0:
+			break;
+        default:
+            view.msg("잘못입력했습니다");
+            break;	
+			
+		}
+	}
+	
+	
 //	//기간별 주문 조회
 //	private void orderSelect{
 //		
@@ -167,8 +262,12 @@ public class ShoppingController {
 //	
 //	//주문 취소
 //	
-//	//뒤로가기
-//	
+//	//로그아웃
+	private void userLogout() {
+		view.msg("로그아웃되었습니다.");
+		user = null;
+	}
+
 }//class
 
 

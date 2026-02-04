@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreait.dto.OrderDTO;
 import com.koreait.dto.UserDTO;
 
 public class ShoppingView {
@@ -157,37 +158,32 @@ public class ShoppingView {
 
 	// ---상품
 	// 상품 전체조회
-//	public void findAllItem(List<String> list) {
-//		System.out.println("--- 전체조회 ---\n");
-//		if(list.isEmpty() ) {
-//			System.out.println("상품 데이터가 없습니다");
-//			return;
-//		}
-//		for (String item : list) {
-//			System.out.println(item);
-//		}
-//	}
+	public void findAllItem(List<String> list) {
+		System.out.println("--- 전체조회 ---\n");
+		if(list.isEmpty() ) {
+			System.out.println("상품 데이터가 없습니다");
+			return;
+		}
+		for (String item : list) {
+			System.out.println(item);
+		}
+	}
 
 	// 상품 카테고리별 조회
-//	public String findItemCategory() { 
-//		System.out.println("--- 카테고리별 조회 ---\n");
-//        System.out.println("검색할 카테고리 입력\n[모자, 상의, 하의, 신발]");
-//        String category = sc.nextLine();
-//        return category;
-//	}
+	public String findItemCategory() { 
+		System.out.println("--- 카테고리별 조회 ---\n");
+        System.out.println("검색할 카테고리 입력\n[모자, 상의, 하의, 신발]");
+        String category = sc.nextLine();
+        return category;
+	}
 
 	// 상품 구매
-	// 회원번호 어떻게 받아올지 고민
-//	public OrderDTO buyItem() {
-//		OrderDTO order = new OrderDTO();
-//		System.out.println("--- 상품 구매 ---\n");
-//		System.out.print("구매할 상품 이름 : ");
-//	    order.setItemName(sc.nextLine());
-//        System.out.print("배송지 우편번호 : ");
-//        order.setAddrNumber(sc.nextLine());
-//		order.setUserNumber(/*회원번호*/); 
-//        return order;
-//	}
+	public String buyItem() {
+		System.out.println("--- 상품 구매 ---\n");
+		System.out.print("구매할 상품 이름 : ");
+		String itemName = sc.nextLine(); 
+        return itemName;
+	}
 
 	// ---주문
 	// 기간으로 주문조회

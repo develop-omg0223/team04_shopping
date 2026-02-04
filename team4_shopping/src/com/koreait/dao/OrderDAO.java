@@ -42,6 +42,7 @@ public class OrderDAO {
 			preparedStatement.setInt(3, itemDto.getItemNumber());
 			preparedStatement.setString(4, userDto.getAddrNumber());
 			result = preparedStatement.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("itemBuy() SQL 오류");
 			e.printStackTrace();
