@@ -42,8 +42,9 @@ public class ShoppingView {
 	// 마이페이지 메뉴
 	public int myPageMenu() {
 		System.out.println("--- 마이페이지 ---\n");
-		System.out.println("1. 정보수정");
-		System.out.println("2. 회원탈퇴");
+		System.out.println("1. 비밀번호 변경");
+		System.out.println("2. 정보 수정");
+		System.out.println("3. 회원탈퇴");
 		System.out.println("0. 뒤로가기");
 		System.out.print("선택 : ");
 		int choice = sc.nextInt();
@@ -98,6 +99,7 @@ public class ShoppingView {
         return user;
     }
 
+
 	// 로그인
 	public UserDTO login() {
 		UserDTO user = new UserDTO();
@@ -110,27 +112,48 @@ public class ShoppingView {
 	}
 
 	// ---마이페이지
+	// 비밀번호변경
+	public List<String> changePw() {
+		List<String> changePw = new ArrayList<>();
+		System.out.println("--- 비밀번호 변경 ---\n");
+
+		System.out.print("현재 비밀번호 : ");
+		String oldPw = sc.nextLine();
+
+		System.out.print("새 비밀번호 : ");
+		String newPw = sc.nextLine();
+
+		changePw.add(oldPw);
+		changePw.add(newPw);
+		return changePw;
+	}
+
 	// 정보수정
-//	public UserDTO updateUser() {
-//		UserDTO user = new UserDTO();
-//		System.out.println("--- 정보 수정 ---\n");
-//		System.out.print("새 비밀번호 : ");
-//		user.setUserPw(sc.nextLine());
-//		return user;
-//	}
+	public UserDTO updateUser() {
+		UserDTO user = new UserDTO();
+		System.out.println("--- 정보 수정 ---");
+		System.out.println("(전화번호, 우편번호 변경)\n");
+		System.out.print("비밀번호 입력 : ");
+		user.setUserPw(sc.nextLine());
+		System.out.print("변경할 전화번호 : ");
+		user.setUserPhone(sc.nextLine());
+		System.out.print("변경할 우편번호 : ");
+		user.setAddrNumber(sc.nextLine());
+		return user;
+	}
 
 	// 회원탈퇴
-//	public UserDTO deleteUser() {
-//		UserDTO user = new UserDTO();
-//		System.out.println("--- 회원 탈퇴 ---\n");
-//		System.out.print("아이디 : ");
-//		user.setUserId(sc.nextLine());
-//		System.out.print("비밀번호 : ");
-//		user.setUserPw(sc.nextLine());
-//		System.out.print("이름 : ");
-//		user.setUserName(sc.nextLine());
-//		return user;
-//	}
+	public UserDTO deleteUser() {
+		UserDTO user = new UserDTO();
+		System.out.println("--- 회원 탈퇴 ---\n");
+		System.out.print("아이디 : ");
+		user.setUserId(sc.nextLine());
+		System.out.print("비밀번호 : ");
+		user.setUserPw(sc.nextLine());
+		System.out.print("이름 : ");
+		user.setUserName(sc.nextLine());
+		return user;
+	}
 
 	// ---상품
 	// 상품 전체조회

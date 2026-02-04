@@ -102,8 +102,8 @@ public boolean changePw(int userNumber, String oldPw, String newPW) {
       connection = DBConnector.getConnection();
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, newPW);
-      preparedStatement.setString(2, oldPw);
-      preparedStatement.setInt(3, userNumber);
+      preparedStatement.setInt(2, userNumber);
+      preparedStatement.setString(3, oldPw);
       result = preparedStatement.executeUpdate();
    } catch (SQLException e) {
       System.out.println("changePw() SQL 오류");
@@ -162,7 +162,9 @@ public boolean changeInfo (int userNumber, String phone, String addrNum, String 
 
 //	서울 로그인 메소드
 	public UserDTO login(UserDTO userDTO) {
+
 		String query = "SELECT USER_NUMBER, USER_ID, USER_PW, USER_NAME, USER_PHONE, ADDR_NUMBER FROM TBL_USER WHERE USER_ID = ? AND USER_PW = ?";
+
 		UserDTO u = new UserDTO();
 		
 		try {
