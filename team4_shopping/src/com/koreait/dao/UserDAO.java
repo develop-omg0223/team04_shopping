@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.koreait.model.UserDTO;
+import com.koreait.dto.UserDTO;
 
 public class UserDAO {
 
@@ -23,18 +23,18 @@ public class UserDAO {
 //  철민 회원가입 메소드 
 	public List<UserDTO> join(UserDTO userDTO) {
 		System.out.println("아이디 입력 : ");
-		userDTO.setId(sc.nextLine());
+		userDTO.setUserId(sc.nextLine());
 		for (UserDTO u : userList) {
-			if (u.getId().equals(userDTO.getId())) {
+			if (u.getUserId().equals(userDTO.getUserId())) {
 				return userList;	// 아이디 중복확인  
 			}
 		}
 		System.out.println("비밀번호 입력 : ");
-		userDTO.setPw(sc.nextLine());
+		userDTO.setUserPw(sc.nextLine());
 		System.out.println("이름 입력 : ");
-		userDTO.setName(sc.nextLine());
+		userDTO.setUserName(sc.nextLine());
 		System.out.println("나이 입력 : ");
-		userDTO.setAge(sc.nextInt());
+		userDTO.setUserAge(sc.nextInt());
 		userList.add(userDTO);
 		return userList;	// 회원가입 성공 
 
@@ -43,7 +43,7 @@ public class UserDAO {
 // 철민 아이디 중복검사 메소드 
 	public boolean idCheck (String id ) {
 		for(UserDTO u : userList) {
-			if (u.getId().equals(id)) {
+			if (u.getUserId().equals(id)) {
 				return true;	// 같은 아이디 존재 
 			}
 		}
@@ -59,8 +59,8 @@ public class UserDAO {
 		try {
 			connection = DBConnector.getConnection();	
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, userDTO.getId());
-			preparedStatement.setString(2, userDTO.getPw());
+			preparedStatement.setString(1, userDTO.getUserId());
+			preparedStatement.setString(2, userDTO.getUserPw());
 			resultSet = preparedStatement.executeQuery();
 		} catch (SQLException e) {
 			System.out.println("login() SQL 오류!!");
@@ -92,9 +92,9 @@ public class UserDAO {
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, userDTO.getId());
-			preparedStatement.setString(2, userDTO.getPw());
-			preparedStatement.setString(3, userDTO.getName());
+			preparedStatement.setString(1, userDTO.getUserId());
+			preparedStatement.setString(2, userDTO.getUserPw());
+			preparedStatement.setString(3, userDTO.getUserName());
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("deleteUser() SQL 오류!!");
