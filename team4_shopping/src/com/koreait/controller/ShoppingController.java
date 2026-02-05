@@ -154,7 +154,7 @@ public class ShoppingController {
 		if(result) {
 			view.msg("전화번호, 주소가 변경되었습니다.");
 		}else {
-			view.msg("비밀번호가 일치하지 않습니다.");
+			view.msg("정보 수정에 실패했습니다.");
 		}
 		
 	}
