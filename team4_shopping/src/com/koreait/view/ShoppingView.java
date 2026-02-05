@@ -19,8 +19,8 @@ public class ShoppingView {
 	// 로그인 전 메뉴
 	public int menuLogout() {
 		System.out.println("===== 남녀공용 의류 쇼핑몰 =====\n");
-		System.out.println("1. 로그인");
-		System.out.println("2. 회원가입");
+		System.out.println("1. 회원가입");
+		System.out.println("2. 로그인");
 		System.out.println("0. 종료");
 		System.out.print("선택 : ");
 		int choice = sc.nextInt();
@@ -86,33 +86,25 @@ public class ShoppingView {
 	// 회원가입
 	public UserDTO inputUser() {
 		UserDTO user = new UserDTO();
-		System.out.println("--- 회원가입 ---\n");
-		System.out.print("아이디 입력 : ");
-		String id = sc.nextLine();
-		//idcheck가 true면 중복
-		if (userdao.idCheck(id)) {
-			System.out.println("이미 있는 아이디입니다");
-			
-		} else {
-			
-		}
-//		user.setUserId(sc.nextLine());
-		System.out.print("비밀번호 입력 : ");
-		user.setUserPw(sc.nextLine());
-		System.out.print("이름 입력 : ");
-		user.setUserName(sc.nextLine());
-		System.out.print("전화번호 입력 : ");
-		user.setUserPhone(sc.nextLine());
-		System.out.print("주소 입력 : ");
-		// System.out.print("우편번호 입력 : ");
-		user.setAddrNumber(sc.nextLine());
-		return user;
-	}
+        System.out.println("--- 회원가입 ---\n");
+        System.out.print("아이디 입력 : ");
+        user.setUserId(sc.nextLine());
+        System.out.print("비밀번호 입력 : ");
+        user.setUserPw(sc.nextLine());
+        System.out.print("이름 입력 : ");
+        user.setUserName(sc.nextLine());
+        System.out.print("전화번호 입력 : ");
+        user.setUserPhone(sc.nextLine());
+        System.out.print("주소 입력 : ");
+        //System.out.print("우편번호 입력 : ");
+        user.setAddrNumber(sc.nextLine()); 
+        return user;
+    }
 
 	// 로그인
 	public UserDTO login() {
 		UserDTO user = new UserDTO();
-		System.out.println("--- 회원 가입 ---\n");
+		System.out.println("--- 로그인 ---\n");
 		System.out.print("아이디 : ");
 		user.setUserId(sc.nextLine());
 		System.out.print("비밀번호 : ");
@@ -166,13 +158,13 @@ public class ShoppingView {
 
 	// ---상품
 	// 상품 전체조회
-//	public void findAllItem(List<ItemDTO> list) {
+//	public void findAllItem(List<String> list) {
 //		System.out.println("--- 전체조회 ---\n");
 //		if(list.isEmpty() ) {
 //			System.out.println("상품 데이터가 없습니다");
 //			return;
 //		}
-//		for (ItemDTO item : list) {
+//		for (String item : list) {
 //			System.out.println(item);
 //		}
 //	}
