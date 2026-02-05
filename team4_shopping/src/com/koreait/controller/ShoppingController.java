@@ -266,14 +266,14 @@ public class ShoppingController {
 	//기간별 주문 조회
 	private void orderPeriodSelect(){
 		List<String> dateRange =  view.orderFindDateRange();
-		orderDAO.orderSearch(dateRange.getFirst(),dateRange.getLast()).stream().forEach(System.out::println);
+		orderDAO.orderSearch(dateRange.getFirst(),dateRange.getLast(),user).stream().forEach(System.out::println);
 		
 	}
 	
 	//날짜별 주문 조회
 	private void orderDateSelect() {
 		String date = view.orderFindDate();
-		orderDAO.daySearch(date).stream().forEach(System.out::println);
+		orderDAO.daySearch(date,user).stream().forEach(System.out::println);
 		
 	}
 	

@@ -33,7 +33,6 @@ public class OrderDAO {
 		if(itemDto.getItemStock() > 0) {
 			candelivery = "상품준비중";
 		} else {
-			candelivery = "구매불가";
 			return false;
 		}
 		
@@ -71,13 +70,13 @@ public class OrderDAO {
 
 		
 	
-	public List<String> orderSearch (String firstDate, String lastDate) {
+	public List<String> orderSearch (String firstDate, String lastDate,UserDTO user) {
 		// 유저네임  , 주문날짜 , 주문 상태, 아이템 name 아이템cat , 아이템 price
-		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
+		String query = "SELECT O.ORDER_NUMBER, U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
 				+ "FROM TBL_USER U "
 				+ "JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER "
 				+ "JOIN TBL_ITEM I ON O.ITEM_NUMBER = I.ITEM_NUMBER "
-				+ "WHERE O.ORDER_DATE BETWEEN ? AND ?";
+				+ "WHERE U.USER_NUMBER = ? AND O.ORDER_DATE BETWEEN ? AND ?";
 		
 		List<String> orderList = new ArrayList<>();
 
@@ -85,12 +84,14 @@ public class OrderDAO {
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setDate(1, Date.valueOf(firstDate));
-			preparedStatement.setDate(2, Date.valueOf(lastDate));
+			preparedStatement.setInt(1, user.getUserNumber());
+			preparedStatement.setDate(2, Date.valueOf(firstDate));
+			preparedStatement.setDate(3, Date.valueOf(lastDate));
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
-				String order = resultSet.getString("USER_NAME") + " , "+
+				String order = 	resultSet.getString("ORDER_NUMBER") + " , "+
+						resultSet.getString("USER_NAME") + " , "+
 						resultSet.getString("ORDER_DATE") + " , "+
 						resultSet.getString("ORDER_STATUS") + " , "+
 						resultSet.getString("ITEM_NAME") + " , "+
@@ -130,11 +131,11 @@ public class OrderDAO {
 	
 //	일별주문조회
 	
-	public List<String>  daySearch (String oneDate) {
-		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
+	public List<String>  daySearch (String oneDate, UserDTO user) {
+		String query = "SELECT O.ORDER_NUMBER, U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
 				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER "
 				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER "
-				+ "WHERE O.ORDER_DATE = ? ";
+				+ "WHERE U.USER_NUMBER = ? AND O.ORDER_DATE = ? ";
 		
 		List<String> orderList = new ArrayList<>();
 
@@ -142,11 +143,13 @@ public class OrderDAO {
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setDate(1, Date.valueOf(oneDate));
+			preparedStatement.setInt(1, user.getUserNumber());
+			preparedStatement.setDate(2, Date.valueOf(oneDate));
 			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
-				String order = resultSet.getString("USER_NAME") + " , "+
+				String order = resultSet.getString("ORDER_NUMBER") + " , "+
+						resultSet.getString("USER_NAME") + " , "+
 						resultSet.getString("ORDER_DATE") + " , "+
 						resultSet.getString("ORDER_STATUS") + " , "+
 						resultSet.getString("ITEM_NAME") + " , "+
