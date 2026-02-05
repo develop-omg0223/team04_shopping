@@ -154,7 +154,7 @@ public class ShoppingController {
 		if(result) {
 			view.msg("전화번호, 주소가 변경되었습니다.");
 		}else {
-			view.msg("비밀번호가 일치하지 않습니다.");
+			view.msg("정보 수정에 실패했습니다.");
 		}
 		
 	}
@@ -266,14 +266,14 @@ public class ShoppingController {
 	//기간별 주문 조회
 	private void orderPeriodSelect(){
 		List<String> dateRange =  view.orderFindDateRange();
-		orderDAO.orderSearch(dateRange.getFirst(),dateRange.getLast()).stream().forEach(System.out::println);
+		orderDAO.orderSearch(dateRange.getFirst(),dateRange.getLast(),user).stream().forEach(System.out::println);
 		
 	}
 	
 	//날짜별 주문 조회
 	private void orderDateSelect() {
 		String date = view.orderFindDate();
-		orderDAO.daySearch(date).stream().forEach(System.out::println);
+		orderDAO.daySearch(date,user).stream().forEach(System.out::println);
 		
 	}
 	
