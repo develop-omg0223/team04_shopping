@@ -42,6 +42,7 @@ public class OrderDAO {
 			preparedStatement.setInt(3, itemDto.getItemNumber());
 			preparedStatement.setString(4, userDto.getAddrNumber());
 			result = preparedStatement.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("itemBuy() SQL 오류");
 			e.printStackTrace();
@@ -152,8 +153,8 @@ public class OrderDAO {
 //   주문 DAO - 수정, 주문취소
 	
 	// 주문 수정
-	public boolean updateOrderAddr(OrderDTO dto) {
-		String query = "UPDATE TBL_ORDER SET ADDR_NUMBER = ? WHERE ORDER_NUMBER = ?";
+	public boolean updateOrderAddr(OrderDTO dto,UserDTO user) {
+		String query = "UPDATE TBL_ORDER SET ADDR_NUMBER = ? WHERE ORDER_NUMBER = ? AND USER_NUMBER = ?";
 		int result = 0;
 
 		try {
@@ -161,6 +162,8 @@ public class OrderDAO {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setString(1, dto.getAddrNumber());
 			preparedStatement.setInt(2, dto.getOrderNumber());
+			preparedStatement.setInt(3, user.getUserNumber());
+			
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("updateOrderAddr() SQL 오류");
@@ -182,15 +185,17 @@ public class OrderDAO {
 	}
 
 	// 주문 취소
-	public boolean cancelOrder(int orderNumber) {
-		String query = "DELETE FROM TBL_ORDER WHERE ORDER_NUMBER = ?";
+	public boolean cancelOrder(int orderNumber, UserDTO user) {
+		String query = "DELETE FROM TBL_ORDER WHERE ORDER_NUMBER = ? AND USER_NUMBER = ? ";
 		int result = 0;
 
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, orderNumber);
+			preparedStatement.setInt(2, user.getUserNumber());
 			result = preparedStatement.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("cancelOrder() SQL 오류");
 			e.printStackTrace();

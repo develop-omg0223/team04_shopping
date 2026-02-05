@@ -123,6 +123,46 @@ public class UserDAO {
 
 	}
 
+
+	public UserDTO findUserInfo(int userNumber) {
+		UserDTO user = new UserDTO();
+		String query = "SELECT USER_ID, USER_NAME, USER_PHONE, ADDR_NUMBER FROM TBL_USER WHERE USER_NUMBER = ?";
+
+		try {
+			connection = DBConnector.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, userNumber);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				user.setUserId(resultSet.getString("USER_ID"));
+				user.setUserName(resultSet.getString("USER_NAME"));
+				user.setUserPhone(resultSet.getString("USER_PHONE"));
+				user.setAddrNumber(resultSet.getString("ADDR_NUMBER"));
+			}
+		} catch (SQLException e) {
+			System.out.println("findUserInfo() SQL 오류");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("findUserInfo() 연결 종료 오류");
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+
+
 //  철민 회원정보 (전화번호, 주소 )변경 
 	public boolean changeInfo(int userNumber, String phone, String addrNum, String pw) {
 		String query = "UPDATE TBL_USER SET USER_PHONE = ?, ADDR_NUMBER = ?  WHERE USER_NUMBER = ? AND USER_PW =?";
@@ -178,7 +218,7 @@ public class UserDAO {
 				u.setUserPhone(resultSet.getString("USER_PHONE"));
 				u.setAddrNumber(resultSet.getString("ADDR_NUMBER"));
 
-				System.out.println(u);
+
 				return u;
 			}
 

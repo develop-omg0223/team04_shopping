@@ -24,7 +24,7 @@ public class DBConnector {
 			// 문제가 없으면 getConnection 객체에 정보를 알려준다 (url,userName, passWord)
 			connection = DriverManager.getConnection(url, userName, password);
 			// SQLException 연결 정보가 잘 못 되었을 때 연결정보 예외
-			System.out.println("-연결 성공-");
+//			System.out.println("-연결 성공-");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("드라이버 로딩 실패");
