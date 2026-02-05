@@ -38,8 +38,9 @@ public class UserDAO {
 			result = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("join() SQL 오류");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("join() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -70,6 +71,7 @@ public class UserDAO {
 				result = 1;
 			}
 		} catch (SQLException e) {
+			System.out.println("잘못된 형식으로 입력");
 			System.out.println("idCheck() SQL 오류");
 			e.printStackTrace();
 		} finally {
@@ -104,8 +106,9 @@ public class UserDAO {
 			preparedStatement.setString(3, oldPw);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("changePw() SQL 오류");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("changePw() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -141,8 +144,9 @@ public class UserDAO {
 				user.setAddrNumber(resultSet.getString("ADDR_NUMBER"));
 			}
 		} catch (SQLException e) {
-			System.out.println("findUserInfo() SQL 오류");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("findUserInfo() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (resultSet != null) {
@@ -177,8 +181,9 @@ public class UserDAO {
 			preparedStatement.setString(4, pw);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("changeInfo() SQL 오류");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("changeInfo() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -223,8 +228,9 @@ public class UserDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("login() SQL 오류!!");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("login() SQL 오류!!");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (resultSet != null) {
@@ -257,8 +263,9 @@ public class UserDAO {
 			preparedStatement.setString(3, userDTO.getUserName());
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("deleteUser() SQL 오류!!");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("deleteUser() SQL 오류!!");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
