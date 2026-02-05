@@ -1,9 +1,12 @@
 package com.koreait.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.koreait.dto.ItemDTO;
 import com.koreait.dto.OrderDTO;
@@ -24,13 +27,14 @@ public class OrderDAO {
 	// 
 	public boolean itemBuy (UserDTO userDto, ItemDTO itemDto) {
 		String query = " INSERT INTO TBL_ORDER "
-				+ "VALUES(SEQ_ORDER.NEXTVAL , sysdate, ?, ?, ?, ?) ";
+				+ "VALUES(SEQ_ORDER.NEXTVAL , TRUNC(sysdate), ?, ?, ?, ?) ";
 		
 		String candelivery;
 		if(itemDto.getItemStock() > 0) {
-			candelivery = "구매가능";
+			candelivery = "상품준비중";
 		} else {
 			candelivery = "구매불가";
+			return false;
 		}
 		
 		int result = 0;
@@ -44,8 +48,9 @@ public class OrderDAO {
 			result = preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("itemBuy() SQL 오류");
-			e.printStackTrace();
+//			System.out.println("itemBuy() SQL 오류");
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -63,87 +68,120 @@ public class OrderDAO {
 	
 	}
 	
-	
-	
-//	public ItemDTO itemBuy (OrderDTO item, ItemDTO itemDTO) {
-//		String query = "SELECT o.order_number, o.order_status, i.item_stock, i.item_number "
-//				+ "FROM tbl_order "
-//				+ "JOIN tbl_item i"
-//				+ " ON o.item_number = i.item_number "
-//				+ "WHERE i.ITEM_STOCK >= ?";
-//		
-//		ItemDTO i = new ItemDTO();
-//			
-//		try {
-//			connection = DBConnector.getConnection();
-//			preparedStatement = connection.prepareStatement(query);
-//			preparedStatement.setInt(1, itemDTO.getItemStock());
-//			resultSet = preparedStatement.executeQuery();
-//			
-//		} catch (SQLException e) {
-//			System.out.println("itemBuy() SQL 오류!");
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if(resultSet != null) {
-//					resultSet.close();
-//				}
-//				if(preparedStatement != null) {
-//					preparedStatement.close();
-//				}
-//				if(connection != null) {
-//					connection.close();
-//				}
-//			} catch (SQLException e) {
-//				System.out.println("itemBuy() 연결 종료 오류!");
-//				e.printStackTrace();
-//			}
-//		}
-//		return i;
-//	}
-//	기간주문조회 
+
 		
 	
-	public orderSearch (String firstDate, String lastDate) {
+	public List<String> orderSearch (String firstDate, String lastDate) {
 		// 유저네임  , 주문날짜 , 주문 상태, 아이템 name 아이템cat , 아이템 price
 		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
-				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER"
-				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER"
-				+ "WHERE O.ORDER_DATE BETWEEN ? AND ? ";
+				+ "FROM TBL_USER U "
+				+ "JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER "
+				+ "JOIN TBL_ITEM I ON O.ITEM_NUMBER = I.ITEM_NUMBER "
+				+ "WHERE O.ORDER_DATE BETWEEN ? AND ?";
 		
+		List<String> orderList = new ArrayList<>();
+
 		
-		int result = 0;
+		try {
+			connection = DBConnector.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setDate(1, Date.valueOf(firstDate));
+			preparedStatement.setDate(2, Date.valueOf(lastDate));
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				String order = resultSet.getString("USER_NAME") + " , "+
+						resultSet.getString("ORDER_DATE") + " , "+
+						resultSet.getString("ORDER_STATUS") + " , "+
+						resultSet.getString("ITEM_NAME") + " , "+
+						resultSet.getString("ITEM_CAT") + " , "+
+						resultSet.getString("ITEM_PRICE");
+				
+				orderList.add(order);
+						
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+//			System.out.println("orderSearch() SQL 오류");
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			e.printStackTrace();
+		} finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("orderSearch() 연결 종료 오류");
+				e.printStackTrace();
+			}
+		}
 		
-		connection = DBConnector.getConnection();
-		preparedStatement = connection.prepareStatement(query);
-		preparedStatement = setString(1, firstDate);
-		preparedStatement = setString(2, lastDate);
-		result = preparedStatement.excuteQuery();
+		return orderList;
 		
 	}
 	
 	
 //	일별주문조회
 	
-	public void daySearch (String oneDate) {
+	public List<String>  daySearch (String oneDate) {
 		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
-				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER"
-				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER"
+				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER "
+				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER "
 				+ "WHERE O.ORDER_DATE = ? ";
 		
-		String oneDate;
-		int result = 0;
+		List<String> orderList = new ArrayList<>();
+
 		
-		connection = DBConnector.getConnection();
-		preparedStatement = connection.prepareStatement(query);
-		preparedStatement = setString(1, oneDate);
-		result = preparedStatement.executeQuery();
+		try {
+			connection = DBConnector.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setDate(1, Date.valueOf(oneDate));
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				String order = resultSet.getString("USER_NAME") + " , "+
+						resultSet.getString("ORDER_DATE") + " , "+
+						resultSet.getString("ORDER_STATUS") + " , "+
+						resultSet.getString("ITEM_NAME") + " , "+
+						resultSet.getString("ITEM_CAT") + " , "+
+						resultSet.getString("ITEM_PRICE");
+				
+				orderList.add(order);
+						
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("daySearch() SQL 오류");
+//			System.out.println("잘못된 형식으로 입력하셨습니다.");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("daySearch() 연결 종료 오류");
+				e.printStackTrace();
+			}
+		}
+		
+		return orderList;
+		
 	}
-	
-	
-	
-	
-	
 	
 	
 	
@@ -166,8 +204,9 @@ public class OrderDAO {
 			
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("updateOrderAddr() SQL 오류");
-			e.printStackTrace();
+//			System.out.println("updateOrderAddr() SQL 오류");
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -197,8 +236,9 @@ public class OrderDAO {
 			result = preparedStatement.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("cancelOrder() SQL 오류");
-			e.printStackTrace();
+//			System.out.println("cancelOrder() SQL 오류");
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null) {

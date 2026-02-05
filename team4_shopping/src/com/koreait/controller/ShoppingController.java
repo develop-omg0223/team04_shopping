@@ -154,7 +154,7 @@ public class ShoppingController {
 		if(result) {
 			view.msg("전화번호, 주소가 변경되었습니다.");
 		}else {
-			view.msg("비밀번호가 일치하지 않습니다.");
+			view.msg("정보 수정에 실패했습니다.");
 		}
 		
 	}
@@ -209,6 +209,7 @@ public class ShoppingController {
 	private void itemCategorySelect() {
 
 		itemDAO.itemCatSelect(view.findItemCategory()).stream().forEach(System.out::println);
+		
 //		for(String item : itemDAO.itemCatSelect(view.findItemCategory())){
 //			view.msg(item);
 //		}
@@ -224,7 +225,7 @@ public class ShoppingController {
 		if(result) {
 			view.msg("주문 완료되었습니다.");
 		}else {
-			view.msg("해당 상품은 판매하지 않습니다.");
+			view.msg("해당 상품은 품절되었습니다.");
 		}
 		
 	}
@@ -264,11 +265,15 @@ public class ShoppingController {
 	
 	//기간별 주문 조회
 	private void orderPeriodSelect(){
+		List<String> dateRange =  view.orderFindDateRange();
+		orderDAO.orderSearch(dateRange.getFirst(),dateRange.getLast()).stream().forEach(System.out::println);
 		
 	}
 	
 	//날짜별 주문 조회
 	private void orderDateSelect() {
+		String date = view.orderFindDate();
+		orderDAO.daySearch(date).stream().forEach(System.out::println);
 		
 	}
 	

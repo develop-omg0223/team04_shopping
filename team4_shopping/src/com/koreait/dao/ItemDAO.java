@@ -40,8 +40,8 @@ public class ItemDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("itemsSelect() SQL 오류");
-			e.printStackTrace();
+//			System.out.println("itemsSelect() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if(preparedStatement != null) {
@@ -89,8 +89,9 @@ public class ItemDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("itemCatSelect() SQL 오류");
-			e.printStackTrace();
+			System.out.println("잘못된 형식으로 입력하셨습니다.");
+//			System.out.println("itemCatSelect() SQL 오류");
+//			e.printStackTrace();
 		} finally {
 			try {
 				if(preparedStatement != null) {
@@ -150,8 +151,9 @@ public class ItemDAO {
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				System.out.println("nameNumberMatch() 연결 종료 오류");
-				e.printStackTrace();
+				System.out.println("잘못된 형식으로 입력하셨습니다.");
+//				System.out.println("nameNumberMatch() 연결 종료 오류");
+//				e.printStackTrace();
 			}
 		}
 		
