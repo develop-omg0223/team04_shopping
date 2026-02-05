@@ -100,14 +100,55 @@ public class OrderDAO {
 //		}
 //		return i;
 //	}
-//	주문조회 
-//	public void ordersearch (OrderDTO order) {
-//		// 아이템 name , 주문날짜 , 주문 상태, 아이템cat , 아이템 price,
-//		connection = DBConnector.getConnection();
-//		preparedStatement = connection.prepareStatement(query);
-//		
-//		
-//	}
+//	기간주문조회 
+		
+	
+	public orderSearch (String firstDate, String lastDate) {
+		// 유저네임  , 주문날짜 , 주문 상태, 아이템 name 아이템cat , 아이템 price
+		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
+				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER"
+				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER"
+				+ "WHERE O.ORDER_DATE BETWEEN ? AND ? ";
+		
+		
+		int result = 0;
+		
+		connection = DBConnector.getConnection();
+		preparedStatement = connection.prepareStatement(query);
+		preparedStatement = setString(1, firstDate);
+		preparedStatement = setString(2, lastDate);
+		result = preparedStatement.excuteQuery();
+		
+	}
+	
+	
+//	일별주문조회
+	
+	public void daySearch (String oneDate) {
+		String query = "SELECT U.USER_NAME, O.ORDER_DATE, O.ORDER_STATUS, I.ITEM_NAME, I.ITEM_CAT, I.ITEM_PRICE "
+				+ "FROM TBL_USER U JOIN TBL_ORDER O ON U.USER_NUMBER = O.USER_NUMBER"
+				+ "JOIN TBL_ITEM I  ON O.ITEM_NUMBER = I.ITEM_NUMBER"
+				+ "WHERE O.ORDER_DATE = ? ";
+		
+		String oneDate;
+		int result = 0;
+		
+		connection = DBConnector.getConnection();
+		preparedStatement = connection.prepareStatement(query);
+		preparedStatement = setString(1, oneDate);
+		result = preparedStatement.executeQuery();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //   주문 DAO - 수정, 주문취소
 	
 	// 주문 수정
