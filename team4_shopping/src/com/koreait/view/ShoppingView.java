@@ -185,12 +185,13 @@ public class ShoppingView {
 	// 상품 전체조회
 	public void findAllItem(List<String> list) {
 		System.out.println("--- 전체조회 ---\n");
-		System.out.println("상품명\t\t카테고리\t\t가격\t\t재고량");
-		if (list.isEmpty()) {
+		if(list.isEmpty() ) {
 			System.out.println("상품 데이터가 없습니다");
 			return;
 		}
 		for (String item : list) {
+			System.out.println("상품명\t\t카테고리\t\t가격\t\t재고량");
+			
 			System.out.println(item);
 		}
 	}
@@ -214,28 +215,27 @@ public class ShoppingView {
 
 	// ---주문
 	// 기간으로 주문조회
-//	public List<String> orderFindDateRange() {
-//		List<String> dateRange = new ArrayList<>();
-//		System.out.println("--- 주문 조회 ---\n");
-//		System.out.print("시작 날짜 입력 (YYYY-MM-DD) : ");
-//		String startDate = sc.nextLine();
-//		System.out.print("끝 날짜 입력 (YYYY-MM-DD) : ");
-//		String endDate = sc.nextLine();
-//		dateRange.add(startDate);
-//		dateRange.add(endDate);
-//		return dateRange;
-//	}
+	public List<String> orderFindDateRange() {
+		List<String> dateRange = new ArrayList<>();
+		System.out.println("--- 주문 조회 ---\n");
+		System.out.print("시작 날짜 입력 (YYYY-MM-DD) : ");
+		String startDate = sc.nextLine();
+		System.out.print("끝 날짜 입력 (YYYY-MM-DD) : ");
+		String endDate = sc.nextLine();
+		dateRange.add(startDate);
+		dateRange.add(endDate);
+		return dateRange;
+	}
 
 	// 날짜로 주문조회
-//	public String orderFindDate() {
-//		System.out.println("--- 주문 조회 ---\n");
-//		System.out.print("날짜 입력 (YYYY-MM-DD) : ");
-//		String date = sc.nextLine();
-//		return date;
-//	}
+	public String orderFindDate() {
+		System.out.println("--- 주문 조회 ---\n");
+		System.out.print("날짜 입력 (YYYY-MM-DD) : ");
+		String date = sc.nextLine();
+		return date;
+	}
 
 	// 주문 배송지 변경
-	// 주문번호로?
 	public OrderDTO updateOrderAddr() {
 		OrderDTO order = new OrderDTO();
 		System.out.println("--- 배송지 변경 ---\n");
