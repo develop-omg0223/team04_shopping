@@ -8,7 +8,7 @@ public class UserDTO {
 	   private String userName;
 	   private String userPhone;
 	   private String addrNumber;
-	   
+
 	   public int getUserNumber() {
 		   return userNumber;
 	   }
@@ -47,9 +47,10 @@ public class UserDTO {
 	   }
 	   
 	   @Override
-	   	   public String toString() {
+	   public String toString() {
 		return "UserDTO [userNumber=" + userNumber + ", userId=" + userId + ", userPw=" + userPw + ", userName="
 				+ userName + ", userPhone=" + userPhone + ", addrNumber=" + addrNumber + "]";
 	   }
+
 	   
 }
